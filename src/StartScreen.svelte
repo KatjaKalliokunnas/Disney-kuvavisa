@@ -22,8 +22,9 @@
 <div class="textbox">
   <p>
     Pelissä näet kuvia Disney hahmoista ja tehtävänäsi on arvata joko hahmon
-    nimi tai mistä elokuvasta kyseinen hahmo on tuttu. Oikeasta vastauksta saat
-    2 pistettä ja väärästä vähennetään yksi piste
+    nimi tai mistä elokuvasta kyseinen hahmo on tuttu. Vastaa niin moneen
+    kysymykseen kun kerkeät 2 minuutin aikana. Oikeasta vastauksta saat 2
+    pistettä ja väärästä vähennetään yksi piste
   </p>
 </div>
 <!-- Välittää App.svelte komponentille aloita-nimisen tapahtuman, jolla käynnistetään peli startGame-funktiolla -->

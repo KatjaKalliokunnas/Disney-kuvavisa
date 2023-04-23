@@ -64,7 +64,7 @@
         {isEmpty}
       />
     {:else}
-      <GameScreen {charactersWithFilm} />
+      <GameScreen {charactersWithFilm} on:quitgame={startGame} />
     {/if}
   {:catch error}
     {error.message}

@@ -1,7 +1,13 @@
 <script>
   import Button from './Button.svelte';
+  import ScoreCounter from './ScoreCounter.svelte';
+  import timer from './timer';
+
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
 
   export let charactersWithFilm = [];
+  $: timesOut = $timer;
 
   let questionValue = true;
   let threeCharacters = [];
@@ -46,26 +52,42 @@
     chooceQuestion();
   }
   drawNewCharacters();
-
-  function nayta(chars) {
-    console.log(chars.name);
+  $: score = 0;
+  let isTrue;
+  function countScores(chars) {
+    if (chars.id === char.id) {
+      score = score + 2;
+      isTrue = true;
+    } else {
+      score = score - 1;
+      isTrue = false;
+    }
+    drawNewCharacters();
+  }
+  $: {
+    if (timesOut < 0) {
+      console.log('Aika loppuu');
+      dispatch('quitgame');
+    }
   }
 </script>
 
 <p>{question}</p>
 <img src={charImage} alt="" />
 <p>{answerOption}</p>
+{timesOut}
 
 {#each threeCharacters as chars, i (chars)}
   {#if questionValue}
     <div>
-      <Button on:click={nayta(chars)}>{chars.films}</Button>
+      <Button on:click={countScores(chars)}>{chars.films}</Button>
     </div>
   {:else}
     <div>
-      <Button on:click={nayta(chars)}>{chars.name}</Button>
+      <Button on:click={countScores(chars)}>{chars.name}</Button>
     </div>
   {/if}
 {/each}
-
-<Button on:click={drawNewCharacters}>Näytä</Button>
+<ScoreCounter {score} />
+<!-- <Button on:click={drawNewCharacters}>Näytä</Button> -->
+<Button on:click={() => dispatch('start')}>Lopeta peli</Button>
