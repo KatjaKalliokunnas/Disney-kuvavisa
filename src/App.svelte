@@ -1,4 +1,5 @@
 <script>
+  import GameScreen from './GameScreen.svelte';
   import StartScreen from './StartScreen.svelte';
 
   export let title;
@@ -53,7 +54,7 @@
 
   {#await charactersWithFilm}
     <p>Loading ...</p>
-  {:then charactersFilm}
+  {:then charactersWithFilm}
     {#if !start}
       <StartScreen
         bind:playerName
@@ -63,7 +64,7 @@
         {isEmpty}
       />
     {:else}
-      <p>Ei oo vielä peliä</p>
+      <GameScreen {charactersWithFilm} />
     {/if}
   {:catch error}
     {error.message}
