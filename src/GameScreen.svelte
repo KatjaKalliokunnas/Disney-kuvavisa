@@ -2,11 +2,17 @@
   import Button from './Button.svelte';
   import ScoreCounter from './ScoreCounter.svelte';
   import timer from './timer';
+  import player from './staticsStore';
+
+  import { onDestroy } from 'svelte';
 
   import { createEventDispatcher } from 'svelte';
+  import TimerBar from './TimerBar.svelte';
+
   const dispatch = createEventDispatcher();
 
   export let charactersWithFilm = [];
+  export let playerName;
   $: timesOut = $timer;
 
   let questionValue = true;
@@ -64,16 +70,29 @@
     }
     drawNewCharacters();
   }
+  let userScores;
+
+  const unsub = player.subscribe((uScores) => (userScores = uScores));
+
+  const saveName = () => player.set({ name: playerName, scores: score });
+
+  onDestroy(() => {
+    if (unsub) {
+      unsub();
+    }
+  });
   $: {
     if (timesOut < 0) {
       console.log('Aika loppuu');
       dispatch('quitgame');
     }
   }
+  console.log('pelaajan pisteet' + userScores);
 </script>
 
 <p>{question}</p>
 <img src={charImage} alt="" />
+<TimerBar />
 <p>{answerOption}</p>
 {timesOut}
 
@@ -90,4 +109,6 @@
 {/each}
 <ScoreCounter {score} />
 <!-- <Button on:click={drawNewCharacters}>Näytä</Button> -->
-<Button on:click={() => dispatch('start')}>Lopeta peli</Button>
+<Button on:click={() => dispatch('quitgame')} on:click={saveName}
+  >Lopeta peli</Button
+>

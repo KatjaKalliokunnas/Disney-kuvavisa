@@ -45,7 +45,6 @@
     } else {
       isEmpty = true;
     }
-    console.log(charactersWithFilm);
   }
 </script>
 
@@ -64,7 +63,7 @@
         {isEmpty}
       />
     {:else}
-      <GameScreen {charactersWithFilm} on:quitgame={startGame} />
+      <GameScreen {charactersWithFilm} {playerName} on:quitgame={startGame} />
     {/if}
   {:catch error}
     {error.message}

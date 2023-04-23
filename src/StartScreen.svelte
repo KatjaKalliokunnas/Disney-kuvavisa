@@ -1,5 +1,7 @@
 <script>
   import Button from './Button.svelte';
+  import player from './staticsStore';
+  import { onDestroy } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
@@ -7,6 +9,16 @@
   export let isValid;
   export let errorMessage;
   export let isEmpty;
+
+  let user;
+  const unsub = player.subscribe((kayt) => (user = kayt));
+
+  onDestroy(() => {
+    if (unsub) {
+      unsub();
+    }
+  });
+  console.log(user);
 </script>
 
 <p>Syötä nimesi aloittaaksesi</p>
