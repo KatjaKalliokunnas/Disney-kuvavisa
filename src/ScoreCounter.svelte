@@ -1,15 +1,5 @@
 <script>
   export let score = 0;
-  // let isTrue;
-  // function nayta(chars) {
-  //   if (chars.id === char.id) {
-  //     score = score + 2;
-  //     isTrue = true;
-  //   } else {
-  //     score = score - 1;
-  //     isTrue = false;
-  //   }
-  // }
 </script>
 
 <div>
@@ -19,8 +9,13 @@
 
 <style>
   div {
-    width: 6em;
-    height: 6em;
-    background-color: darkkhaki;
+    position: relative;
+    top: -30em;
+    left: 10em;
+    width: 10em;
+    height: 10em;
+    background-color: rgb(107, 189, 107);
+    padding: 2em;
+    border: solid 3px #7f29b4;
   }
 </style>

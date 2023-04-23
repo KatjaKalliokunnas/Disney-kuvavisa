@@ -21,7 +21,6 @@
   let charImage;
   let answerOption;
   let question = '';
-  console.log(charactersWithFilm);
 
   //valitsee kysymyksen boolean arvon perusteella ja tallentaa
   //painikkeessa näytettävän teksin sen peruteella kysytäänkö
@@ -54,12 +53,13 @@
       });
     }
     threeCharacters = threeCharacters;
-    console.log(threeCharacters);
+
     chooceQuestion();
   }
   drawNewCharacters();
   $: score = 0;
   let isTrue;
+  // Laskee pisteet
   function countScores(chars) {
     if (chars.id === char.id) {
       score = score + 2;
@@ -81,13 +81,13 @@
       unsub();
     }
   });
+  // Lopettaa pelin ja tallentaa pisteet ja nimen storeen kun aika loppuu
   $: {
     if (timesOut < 0) {
-      console.log('Aika loppuu');
+      saveName();
       dispatch('quitgame');
     }
   }
-  console.log('pelaajan pisteet' + userScores);
 </script>
 
 <p>{question}</p>
@@ -107,8 +107,8 @@
     </div>
   {/if}
 {/each}
-<ScoreCounter {score} />
 <!-- <Button on:click={drawNewCharacters}>Näytä</Button> -->
 <Button on:click={() => dispatch('quitgame')} on:click={saveName}
   >Lopeta peli</Button
 >
+<ScoreCounter {score} />

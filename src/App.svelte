@@ -1,6 +1,7 @@
 <script>
   import GameScreen from './GameScreen.svelte';
   import StartScreen from './StartScreen.svelte';
+  import Modal from './Modal.svelte';
 
   export let title;
 
@@ -39,12 +40,22 @@
   let start = false;
 
   // Tarkastaa onko input-kentässä tekstiä ja jos on, aloittaa ja lopettaa pelin vaihtamalla start muuttujan boolean arvoa jonka mukaan näytetään joko aloitusruutu tai peliruutu. Jos kenttä on tyhjä antaa virheilmoituksen.
+  let showEndStatus = false;
   function startGame() {
     if (validName) {
       start = !start;
     } else {
       isEmpty = true;
     }
+    showEndStatus = false;
+  }
+  function endGame() {
+    if (validName) {
+      start = !start;
+    } else {
+      isEmpty = true;
+    }
+    showEndStatus = true;
   }
 </script>
 
@@ -63,11 +74,14 @@
         {isEmpty}
       />
     {:else}
-      <GameScreen {charactersWithFilm} {playerName} on:quitgame={startGame} />
+      <GameScreen {charactersWithFilm} {playerName} on:quitgame={endGame} />
     {/if}
   {:catch error}
     {error.message}
   {/await}
+  {#if showEndStatus}
+    <Modal {playerName} on:quitgame={() => (showEndStatus = false)} />
+  {/if}
 </main>
 
 <style>

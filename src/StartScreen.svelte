@@ -9,16 +9,6 @@
   export let isValid;
   export let errorMessage;
   export let isEmpty;
-
-  let user;
-  const unsub = player.subscribe((kayt) => (user = kayt));
-
-  onDestroy(() => {
-    if (unsub) {
-      unsub();
-    }
-  });
-  console.log(user);
 </script>
 
 <p>Syötä nimesi aloittaaksesi</p>
