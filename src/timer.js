@@ -1,6 +1,6 @@
 import { readable } from 'svelte/store';
 
-const STARTVALUE = 20;
+const STARTVALUE = 100;
 let value = STARTVALUE;
 
 const countdown = readable(value, (set) => {

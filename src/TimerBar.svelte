@@ -2,7 +2,7 @@
   import { tweened } from 'svelte/motion';
 
   const countingBar = tweened(1, {
-    duration: 20000,
+    duration: 100000,
   });
 
   const startTween = () => {

@@ -13,6 +13,7 @@
 
   export let charactersWithFilm = [];
   export let playerName;
+  // automaattinen tilaus storelle joka laskee ajan
   $: timesOut = $timer;
 
   let questionValue = true;
@@ -59,6 +60,7 @@
   drawNewCharacters();
   $: score = 0;
   let isTrue;
+
   // Laskee pisteet
   function countScores(chars) {
     if (chars.id === char.id) {
@@ -71,7 +73,7 @@
     drawNewCharacters();
   }
   let userScores;
-
+  // tilaa storen jonne tallentaa pisteet ja nimen pelin lopussa
   const unsub = player.subscribe((uScores) => (userScores = uScores));
 
   const saveName = () => player.set({ name: playerName, scores: score });
@@ -90,25 +92,51 @@
   }
 </script>
 
-<p>{question}</p>
-<img src={charImage} alt="" />
-<TimerBar />
-<p>{answerOption}</p>
-{timesOut}
+<div class="container">
+  <div class="item1">
+    <h3>{question}</h3>
+    <TimerBar />
+  </div>
+  <span id="image"><img src={charImage} alt="" /></span>
+  <!-- <p>{answerOption}</p>
+  {timesOut} -->
+  <div class="buttons">
+    {#each threeCharacters as chars, i (chars)}
+      {#if questionValue}
+        <div>
+          <Button on:click={countScores(chars)}>{chars.films}</Button>
+        </div>
+      {:else}
+        <div>
+          <Button on:click={countScores(chars)}>{chars.name}</Button>
+        </div>
+      {/if}
+    {/each}
+    <Button on:click={() => dispatch('quitgame')} on:click={saveName}
+      >Lopeta peli</Button
+    >
+  </div>
+  <div class="score">
+    <ScoreCounter {score} />
+  </div>
+</div>
 
-{#each threeCharacters as chars, i (chars)}
-  {#if questionValue}
-    <div>
-      <Button on:click={countScores(chars)}>{chars.films}</Button>
-    </div>
-  {:else}
-    <div>
-      <Button on:click={countScores(chars)}>{chars.name}</Button>
-    </div>
-  {/if}
-{/each}
-<!-- <Button on:click={drawNewCharacters}>Näytä</Button> -->
-<Button on:click={() => dispatch('quitgame')} on:click={saveName}
-  >Lopeta peli</Button
->
-<ScoreCounter {score} />
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  .item1 {
+    grid-column: 2 / span 2;
+    padding-top: 3rem;
+    text-align: left;
+  }
+  .score {
+    margin-left: 3rem;
+  }
+  .buttons {
+    margin-top: 2rem;
+    text-align: left;
+    padding-left: 3rem;
+  }
+</style>

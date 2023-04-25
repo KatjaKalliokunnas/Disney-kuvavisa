@@ -2,6 +2,7 @@
   import GameScreen from './GameScreen.svelte';
   import StartScreen from './StartScreen.svelte';
   import Modal from './Modal.svelte';
+  import { Loader } from 'agnostic-svelte';
 
   export let title;
 
@@ -49,21 +50,13 @@
     }
     showEndStatus = false;
   }
-  function endGame() {
-    if (validName) {
-      start = !start;
-    } else {
-      isEmpty = true;
-    }
-    showEndStatus = true;
-  }
 </script>
 
 <main>
-  <h1>Hello {title}!</h1>
+  <h1>{title}!</h1>
 
   {#await charactersWithFilm}
-    <p>Loading ...</p>
+    <Loader size="xlarge" />
   {:then charactersWithFilm}
     {#if !start}
       <StartScreen
@@ -74,13 +67,26 @@
         {isEmpty}
       />
     {:else}
-      <GameScreen {charactersWithFilm} {playerName} on:quitgame={endGame} />
+      <GameScreen
+        {charactersWithFilm}
+        {playerName}
+        on:quitgame={() => {
+          start = !start;
+          showEndStatus = true;
+        }}
+      />
     {/if}
   {:catch error}
     {error.message}
   {/await}
   {#if showEndStatus}
-    <Modal {playerName} on:quitgame={() => (showEndStatus = false)} />
+    <Modal
+      {playerName}
+      on:quitgame={() => {
+        showEndStatus = false;
+        playerName = '';
+      }}
+    />
   {/if}
 </main>
 

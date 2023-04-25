@@ -1,7 +1,5 @@
 <script>
   import Button from './Button.svelte';
-  import player from './staticsStore';
-  import { onDestroy } from 'svelte';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
 
@@ -25,8 +23,8 @@
   <p>
     Pelissä näet kuvia Disney hahmoista ja tehtävänäsi on arvata joko hahmon
     nimi tai mistä elokuvasta kyseinen hahmo on tuttu. Vastaa niin moneen
-    kysymykseen kun kerkeät 2 minuutin aikana. Oikeasta vastauksta saat 2
-    pistettä ja väärästä vähennetään yksi piste
+    kysymykseen kuin ehdit 1 minuutin aikana. Oikeasta vastauksta saat 2
+    pistettä ja väärästä vähennetään yksi piste.
   </p>
 </div>
 <!-- Välittää App.svelte komponentille aloita-nimisen tapahtuman, jolla käynnistetään peli startGame-funktiolla -->
@@ -36,12 +34,13 @@
   p {
     font-weight: 600;
     font-size: 2.25;
+    margin: 3rem;
   }
   input {
     height: 3em;
     width: 14em;
     background-color: rgba(182, 177, 245, 0.25);
-    border: solid 2px #b6b1f5;
+    border: solid 2px #726eac;
     border-radius: 0.5em;
   }
   .textbox {
