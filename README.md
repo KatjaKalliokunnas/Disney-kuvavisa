@@ -1,7 +1,7 @@
 Katja Kalliokunnas
 Disney kuvavisa
 
-Disney kuvavisa peli, joka on tarkoitettu Disney faneille ajanvietteeksi. Tai muillekin jotka tykkäävät pelailla
+Sveltellä toteutettu Disney kuvavisa peli, joka on tarkoitettu Disney faneille ajanvietteeksi. Tai muillekin jotka tykkäävät pelailla
 arvauspelejä.
 
 Työssä on käytetty tekstin tyylinä käytetty googlefontsin Sedwic Ave Display-fonttia,
